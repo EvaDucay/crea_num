@@ -1,0 +1,19 @@
+Tech : Web App - React and  Framework next JS
+Framework : unrealengine ou renpy à regarder (Visual Novel)
+
+Système 
+Anim 2D : Normal 
+Anim 3D : Combat - Type Pokemon -  anim avec Mixamo (unity) combat (passage 3D)
+
+1) Début code (qq fenetres avec enchainement) avec un perso
+Prototype : semaine pro 
+Fenetre dialogue (1 ou plusieurs pour montrer enchainement)
+2) PPT résumé projet
+
+Lina/Thomas : React (front/back)
+Eva : Design 1er perso + 1ere arbo
+2-3
+Romain : Recherche mixamo
+
+Point ce weekend
+Add Rudy sur git 

@@ -1,0 +1,42 @@
+Lina BEN BRAHIM -> Code 
+Romain SENHADJI -> Code
+Eva DUCAY -> Graphisme, storytelling 
+Lucas SACCOMAN -> Code 
+
+Lien doc : 
+https://s.42l.fr/MCN-2022-23
+
+Idée : jeu de drague 2D (perso + dialogues à choisir) 
+-> Outils ?
+-> Langage ?
+-> Ordi ou tel ?
+
+-> Perso principal = F
+-> Jeu 15 ans  et +
+-> Les "bons" choix conduisent à la mauvaise fin. 
+-> Certains personnages sont à éviter (ne pas date)
+-> Un psychopathe ?
+-> Contexte : entreprise, apocalypse ?
+-> Français 
+
+
+Objectif très bien : 10 min de jeu
+Objectif qu'on vise : 5 min de jeu
+
+M : démo jeu 2 min / 1 héro / 1 prétendant
+-> S : démo jeu 5 min / 1 héro / 3 prétendants 
+C : démo jeu 10 min / 1 héro / 5 prétendants
+W : démo jeu 15 min / 2 versions (H-F) du héros / 2*6 prétendants (H-F) /Version anglaise du jeu
+
+Inspiration : La Flamme, Amour sucré, Episodes, Doki Doki Literature Club!
+
+Planning : 
+29/09 : avoir défini outils/langage/support & définir storyline générale + perso
+06/10 : avoir défini à quoi ressemblent fenêtres + boucles + base code & dialogues
+13/10 : base code & graphismes
+27/10 : intégrer code+storyline & graphismes
+10/11 : intégrer code+storyline+graphismes
+17/11 : intégrer code+storyline+graphismes
+01/12 => soutenance 
+
+reflechir aspects psychologiques, voir si principes à appliquer, définir règles...

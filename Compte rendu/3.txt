@@ -1,0 +1,5 @@
+Moteur Renpy (abandon react)
+Répartir rôles : 
+Eva : finir ppt + storyline + revoir dialogue + wireframe rudy (voir video messenger)
+Lina : voir avec eva dialogue + storyline
+Rudy : ren'py
