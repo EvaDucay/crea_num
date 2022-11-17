@@ -1,0 +1,14 @@
+mini jeu se lance tout seul : 
+si on réussit => on continue l'histoire, 
+si on fail => on reprend un peu avant dans l'histoire 
+
+mini-jeux : 
+1) candy crush style 
+2) shooting 
+
+A faire : ajouter 2/3 trucs, modifs la difficulté de chaque jeu pour l'avoir en 3 examplaires, rajouter à main jeux avec enchainement frames ou respawn
+
+Soutenance : 10 min 
+Aller voir sur excel si tt est à jour niveau docs et lien à voir
+
+Projet (le jury ne connait rien), qui a fait quoi, histoire, étapes du projet, et surtout démo 
