@@ -285,7 +285,7 @@
 
 
 transform half_size:
-    zoom 0.5
+    zoom 1
 
 transform spotlights:
     zoom 0.8
