@@ -48,7 +48,21 @@ label start:
     "...Je marche dans les couloirs, mais j’entends un bruit sur la droite, qu’est ce que c’est..."
     "DES ZOMBIES !!!"
 
+    label checkpoint_lose1:
+        scene ecole with dissolve
+        e "This is a checkpoint when you lose."
+        
     "CCCCOOOOMMMMMBBBBAAAAATTTTTTT"
+
+    $label_win = "checkpoint_lose1"
+    $label_lose = "end_win"
+    jump start_game1
+
+    label end_win:
+        scene ecole with dissolve
+        show tom_happy
+        e "Bravo! Tu as battu tous les zombies !!"
+
 
     hide tom_happy
     show luca_angry
