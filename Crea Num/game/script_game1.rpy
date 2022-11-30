@@ -224,7 +224,7 @@ label start_game1:
     $icons_list = []
     $countdownTime = 60.0
     $zombi_kill = 0
-    $ammo_left = 100
+    $ammo_left = 30
     $game_losed = False
     $game_over = False
 
