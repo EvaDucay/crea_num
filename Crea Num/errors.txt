@@ -2,7 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 443: Indentation mismatch.
+File "game/script.rpy", line 36: Captions and say menuitems may not exist in the same menu.
+    "(…Il a l’air fort, ça pourrait m’être utile. Mais je ne l’ai jamais vu, est ce que c’est un élève ?)" 
+                                                                                                           ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Mon Nov 28 20:40:15 2022
+Thu Dec  1 04:15:57 2022

@@ -14,7 +14,7 @@ label start:
 
     "...est ce que je suis morte? \nNan ma tete me fait trop mal pour ca."
 
-    scene school with dissolve
+    scene ecole with dissolve
     show tom_neutral with dissolve
    
     "AHHH un monstre!!!"
@@ -32,7 +32,7 @@ label start:
             $ temp = False
 
     menu:
-        t "Tu es seule? Tu veux que je te raccompagne?\n\n(…Il a l’air fort, ça pourrait m’être utile. Mais je ne l’ai jamais vu, est ce que c’est un élève ?)" 
+        t "Tu es seule? Tu veux que je te raccompagne? \n\n\n(…Il a l’air fort, ça pourrait m’être utile. Mais je ne l’ai jamais vu, est ce que c’est un élève ?)" 
     
         "Comment tu t’appelles?":
             hide tom_neutral
@@ -44,17 +44,27 @@ label start:
             t "Je suis Tom du TD05, c’est mon premier jour, viens on va rejoindre mes amis."
 
     hide tom_happy
-    hide school
-    scene corridor
 
     "...Je marche dans les couloirs, mais j’entends un bruit sur la droite, qu’est ce que c’est..."
     "DES ZOMBIES !!!"
 
-    hide corridor
-
+    label checkpoint_lose1:
+        scene ecole with dissolve
+        e "This is a checkpoint when you lose."
+        
     "CCCCOOOOMMMMMBBBBAAAAATTTTTTT"
 
-    scene classroom
+    $label_win = "checkpoint_lose1"
+    $label_lose = "end_win"
+    jump start_game1
+
+    label end_win:
+        scene ecole with dissolve
+        show tom_happy
+        e "Bravo! Tu as battu tous les zombies !!"
+
+
+    hide tom_happy
     show luca_angry
 
     l "Mais où t'étais Tom ? Je meurs de faim, ça fait 4 heures que je t’ai envoyé chercher des sandwichs à la cafet"
@@ -75,9 +85,6 @@ label start:
         " Waw Luca t’es vraiment trop beau":
             l "C’est pas à toi que je parlais, et arrête de mettre du sang partout, tu vas attirer les zombies !"
 
-    hide luca_angry
-    hide classroom
-    scene tent
     "Charmant… tiens, derrière eux il y a une tente.\nJ’entre dedans et je manque de m’étaler. Quel chantier."
 
     hide luca_angry
@@ -150,25 +157,27 @@ label start:
     show luca_scared
     
     l "Bon, Comme je l’avais prévu ton sang nous a ramené des zombies. Essaie de te cacher."
-    hide luca_scared
 
     menu:
         "Qui vais-je choisir pour combattre ?"
 
         "Luca":
             $ fighter = "Luca"
-            show luca_angry
             "Luca à l'attaque !"
+            hide luca_scared
+            show luca_angry
 
         "Emilien":
             $ fighter = "Emilien"
-            show emilien_angry
             "Emilien à l'attaque !"
+            hide luca_scared
+            show emilien_angry
 
         "Tom":
             $ fighter = "Tom"
-            show tom_angry
             "Tom à l'attaque !"
+            hide luca_scared
+            show tom_angry
 
 
     "CCCCOOOOMMMMMBBBBAAAAATTTTTTT"
@@ -213,7 +222,7 @@ label start:
 
     l "Bon ça sert plus a rien de rester ici, prenez le nécessaire et on s’en va."
 
-    hide tent
+    hide ecole
     hide luca_neutral
 
     jump supermarket
@@ -484,7 +493,7 @@ label city:
     hide emilien_neutral
     show luca_happy
 
-    l "On devrait s’y rendre au plus vite alors"
+    l "On devraient s’y rendre au plus vite alors"
 
     hide luca_happy
     show tom_scared
@@ -499,28 +508,67 @@ label city:
     hide zombie
 
 
+    "CCCCCCCOOOOOOOOOMMMMMMMBBBBBBBAAAAAATTTTTT"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "Qui vais-je choisir pour combattre ?"
+
     menu:
         "Qui vais-je choisir pour combattre ?"
 
         "Luca":
             $ fighterX = "Luca"
-            show luca_angry
             "Luca à l'attaque !"
+            hide luca_scared
+            show luca_angry
 
         "Emilien":
             $ fighterX = "Emilien"
-            show emilien_angry
             "Emilien à l'attaque !"
-            
+            hide luca_scared
+            show emilien_angry
+
         "Tom":
             $ fighterX = "Tom"
-            show tom_angry
             "Tom à l'attaque !"
-
-
-    "CCCCCCCOOOOOOOOOMMMMMMMBBBBBBBAAAAAATTTTTT"
-
-            
+            hide luca_scared
+            show tom_angry
 
     if fighterX == "Tom":
 
@@ -569,9 +617,6 @@ label city:
             "Mais non, tu restes avec nous, on va trouver la zone libre et peut être que là bas ils auront un remède pour toi ! Pas question d’abandonner quelqu’un.":
                 $ temp = False
             "Je suis désolée Tom mais il vaut mieux pour tout le monde que tu partes…Fais attention à toi... ":
-                hide tom_sad
-                hide city
-                scene safe
                 "…Après un voyage difficile, on est enfin arrivé à la zone libre."
                 "Malheureusement, les familles d’Emilien,, de Tom et de Luca ne sont jamais arrivés jusque là, et on s’est tous séparés."
                 "En parlant de [fighterX]… je pense souvent à lui ces temps-ci. Est-ce qu’il erre dehors, transformé en zombie ?"
@@ -583,7 +628,6 @@ label city:
         e  "Je suis d’accord on peut pas l’abandonner, Tom tient bon on va trouver une solution."
 
     elif fighterX == "Emilien":
-        hide emilien_angry
         show emilien_scared
         e "Arghhhhhh…"
         
@@ -619,9 +663,6 @@ label city:
             "Mais non, tu restes avec nous, on va trouver la zone libre et peut être que la bas il auront un remède pour toi, pas question d’abandonner quelqu’un":
                 $ temp = False
             "Je suis désolée Emilien mais il vaut mieux pour tout le monde que tu restes derrière…Fais attention à toi...":
-                hide emilien_sad
-                hide city
-                scene safe
                 "…Après un voyage difficile, on est enfin arrivé à la zone libre."
                 "Malheureusement, les familles d’Emilien,, de Tom et de Luca ne sont jamais arrivés jusque là, et on s’est tous séparés."
                 "En parlant de [fighterX]… je pense souvent à lui ces temps-ci. Est-ce qu’il erre dehors, transformé en zombie ?"
@@ -634,7 +675,6 @@ label city:
 
 
     else:
-        hide luca_angry
         show luca_scared
         l "Arghhhhhh…."
         
@@ -673,9 +713,6 @@ label city:
             "On va trouver la zone libre et peut être que là bas ils auront un remède pour toi. Pas question d’abandonner quelqu’un !":
                 $ temp = False
             "… Fais attention à toi":
-                hide luca_sad
-                hide city
-                scene safe
                 "…Après un voyage difficile, on est enfin arrivé à la zone libre."
                 "Malheureusement, les familles d’Emilien,, de Tom et de Luca ne sont jamais arrivés jusque là, et on s’est tous séparés."
                 "En parlant de [fighterX]… je pense souvent à lui ces temps-ci. Est-ce qu’il erre dehors, transformé en zombie ?"
@@ -692,35 +729,68 @@ label city:
     show will_scared
     w "AIDEZ-MOI S’IL VOUS PLAIT !!!"
 
-    menu:
-        "Qui vais-je choisir pour combattre ?"
 
-        "Emilien" if fighterX != "Emilien":
-            $ fighter = "Emilien"
-            hide will_scared
-            show emilien_angry
-            "Emilien à l'attaque !"
-            hide emilien_angry
-            
-        "Tom" if fighterX != "Tom":
-            $ fighter = "Tom"
-            hide will_scared
-            show tom_angry
-            "Tom à l'attaque !"
-            hide tom_angry
+    if fighterX == "Emilien":
 
-        "Luca" if fighterX != "Luca":
-            $ fighter = "Luca"
-            hide will_scared
-            show luca_angry
-            "Luca à l'attaque !"
-            hide luca_angry
-            
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Luca":
+                $ fighter = "Luca"
+                "Luca à l'attaque !"
+                hide will_scared
+                show luca_angry
+
+            "Tom":
+                $ fighter = "Tom"
+                "Tom à l'attaque !"
+                hide will_scared
+                show tom_angry
+
+    elif fighterX == "Luca":
+
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Emilien":
+                $ fighter = "Emilien"
+                "Luca à l'attaque !"
+                hide will_scared
+                show emilien_angry
+
+            "Tom":
+                $ fighter = "Tom"
+                "Tom à l'attaque !"
+                hide will_scared
+                show tom_angry
+
+    else :
+
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Emilien":
+                $ fighter = "Emilien"
+                "Emilien à l'attaque !"
+                hide will_scared
+                show emilien_angry
+
+            "Tom":
+                $ fighter = "Luca"
+                "Luca à l'attaque !"
+                hide will_scared
+                show luca_angry
 
 
-    "CCCCOMMMMBAAAATTTTTTTTTTTTTTTTTTT"
 
-        
+    if fighter == "Luca":
+        hide luca_angry
+
+    elif fighter == "Tom":
+        hide tom_angry
+
+    else :
+        hide emilien_angry
 
     show will_happy
 
@@ -743,7 +813,7 @@ label city:
         
         w  "J’étais tranquillement en train de manger quand ce zombie est venu me courir après."
 
-        "Et t’as pas trouvé mieux à faire que de courir vers nous et nous mettre en danger?":
+        "Et t’as pas trouver mieux à faire que de courir vers nous et nous mettre en danger?":
             hide will_neutral
             show will_happy
             w "Je vois que vous avez un blessé, je peux peut être vous aider?"
@@ -768,6 +838,10 @@ label city:
     hide luca_angry
     show tom_neutral
     t "Attends, si on le laisse seul, il va se faire bouffer par les zombies…"
+
+
+    
+
 
 
     hide tom_neutral
@@ -854,17 +928,7 @@ label city:
 
 
     
-    "OK, [fighterX] a besoin qu’on arrive rapidement à la zone libre, donc si c’est plus court par l’hôpital et qu’on peut en profiter pour récupérer des médicaments, on te suit."
-
-    hide will_neutral
-    hide city
-    jump hospital
-
-
-
-label hospital:
-
-    scene hospital
+    "OK, [fighterX] a besoin qu’on arrive rapidement à la zone libre, donc si c’est plus court par l’hôpital et qu’on peut en profiter pourr récupérer des médicaments, on te suit."
 
     "… On arrive à l'hôpital…"
 
@@ -876,27 +940,59 @@ label hospital:
     show will_scared
     w "J’aime pas trop rester dans cet endroit…je vais rester en bas avec votre ami blessé. Bonnes fouilles !"
 
-    hide will_scared
 
 
-    menu:
-        "…Je choisis de faire équipe avec :"
+    if fighterX == "Emilien":
 
-        "Luca" if fighterX != "Luca":
-            $ teammate = "Luca"
-            show luca_happy
-            "C'est parti !"
+        menu:
+            "…Je choisis de faire équipe avec :"
 
-        "Tom" if fighterX != "Tom":
-            $ teammate = "Tom"
-            show tom_happy
-            "C'est parti !"
+            "Luca":
+                $ teammate = "Luca"
+                "C'est parti !"
+                hide will_scared
+                show luca_happy
 
-        "Emilien" if fighterX != "Emilien":
-            $ teammate = "Emilien"
-            show emilien_happy 
-            "C'est parti !"
-                        
+            "Tom":
+                $ teammate = "Tom"
+                "C'est parti !"
+                hide will_scared
+                show tom_happy
+
+    elif fighterX == "Luca":
+
+        menu:
+            "…Je choisis de faire équipe avec :"
+
+            "Emilien":
+                $ teammate = "Emilien"
+                "C'est parti !"
+                hide will_scared
+                show emilien_happy
+
+            "Tom":
+                $ teammate = "Tom"
+                "C'est parti !"
+                hide will_scared
+                show tom_happy
+
+    else :
+
+        menu:
+            "…Je choisis de faire équipe avec :"
+
+            "Emilien":
+                $ fighter = "Emilien"
+                "C'est parti !"
+                hide will_scared
+                show emilien_happy
+
+            "Luca":
+                $ fighter = "Luca"
+                "C'est parti !"
+                hide will_scared
+                show tom_happy
+                
 
 
     if teammate =="Emilien":
@@ -914,12 +1010,9 @@ label hospital:
                 show emilien_neutral
                 e "On devrait essayer de chercher un médicament, peut être un anti douleur"
 
-        hide emilien_neutral
 
         "… On fait le tour des pièces…"
         "…. Je ne trouve rien qui pourrait nous être utile…"
-
-        show emilien_neutral
 
         "Emilien, je crois bien qu’on se fatigue pour rien, il n'y a vraiment rien ici."
 
@@ -963,9 +1056,6 @@ label hospital:
         hide emilien_angry
         show emilien_neutral
         e "Ca on va bientôt le découvrir"
-
-        hide emilien_neutral
-
         "...Ça n’as pas vraiment de sens…Pourquoi il nous a accompagnés à l’hôpital sans nous dire qu’il y travaillait? Et pourquoi il n’aime pas cet endroit?"
 
     elif teammate == "Tom":
@@ -983,13 +1073,10 @@ label hospital:
                 show tom_neutral
                 t "Je vais chercher de ce côté"
 
-        hide tom_neutral
+        
 
         "… On fait le tour des pièces…"
         "…. Je ne trouve rien qui pourrait nous être utile…"
-
-        show tom_neutral
-
         "Je crois bien que se fatigue pour rien…"
         hide tom_neutral
         show tom_angry
@@ -1023,9 +1110,6 @@ label hospital:
         t "Pourquoi nous cacher ça?"
 
         "Ca on va bientôt le découvrir"
-
-        hide tom_neutral
-
         "...Ça n’as pas vraiment de sens…Pourquoi il nous a accompagnés à l’hôpital sans nous dire qu’il y travaillait? Et pourquoi il n’aime pas cet endroit?"
 
     else:
@@ -1045,14 +1129,11 @@ label hospital:
                 show luca_neutral
                 l "C’est toi qui voulais venir ici…Je prends la partie droite donc prends lagauche et essaie de regarder si il y a quelque chose d’utile !"
         
-        hide luca_neutral
+
 
         "Ca marche"
         "… On fait le tour des pièces…"
         "…. Je ne trouve rien qui pourrait nous être utile…"
-
-        show luca_neutral
-
         "Je crois bien que se fatigue pour rien…"
         hide luca_neutral
         show luca_angry
@@ -1081,42 +1162,69 @@ label hospital:
         l "On va pas tarder à le découvrir.. viens !"
         "...Ça n’as pas vraiment de sens…Pourquoi il nous a accompagnés à l’hôpital sans nous dire qu’il y travaillait? Et pourquoi il n’aime pas cet endroit?"
 
-        hide luca_neutral
-
-    "…On doit retrouver les autres et confronter WILL…"
-    "… On se dirige vers l’entrée de l’hôpital, mais elle est bloquée… par un ZOMBIE.."
-
-    menu:
-        "Qui vais-je choisir pour combattre ?"
-
-        "Emilien" if fighterX != "Emilien":
-            $ fighter = "Emilien"
-            show emilien_angry
-            "Emilien à l'attaque !"
-            hide emilien_angry
-            
-        "Tom" if fighterX != "Tom":
-            $ fighter = "Tom"
-            show tom_angry
-            "Tom à l'attaque !"
-            hide tom_angry
-
-        "Luca" if fighterX != "Luca":
-            $ fighter = "Luca"
-            show luca_angry
-            "Luca à l'attaque !"
-            hide luca_angry
+        "…On doit retrouver les autres et confronter WILL…"
+        "… On se dirige vers l’entrée de l’hôpital, mais elle est bloquée… par un ZOMBIE.."
 
 
-    "cccccccccoooooooooooommmmmmmmmmbbbbbbbbaaaaaaaaaatttttttt"
+
+    if fighterX == "Emilien":
+
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Luca":
+                $ fighter = "Luca"
+                "Luca à l'attaque !"
+                hide luca_scared
+                show luca_angry
+
+            "Tom":
+                $ fighter = "Tom"
+                "Tom à l'attaque !"
+                hide luca_scared
+                show tom_angry
+
+    elif  fighterX == "Luca":
+
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Emilien":
+                $ fighter = "Emilien"
+                "Luca à l'attaque !"
+                hide emilien_scared
+                show emilien_angry
+
+            "Tom":
+                $ fighter = "Tom"
+                "Tom à l'attaque !"
+                hide luca_scared
+                show tom_angry
+
+    else :
+
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Emilien":
+                $ fighter = "Emilien"
+                "Luca à l'attaque !"
+                hide emilien_scared
+                show emilien_angry
+
+            "Luca":
+                $ fighter = "Luca"
+                "Luca à l'attaque !"
+                hide luca_scared
+                show luca_angry
+                    
+
 
 
     "… Je crois que Will nous doit des explications…"
-
-    show will_scared
-
     "T’aurais pu nous dire que tu travaillais à l'hôpital ?"
 
+    show will_scared
     w "De quoi tu parles?"
     "Tu peux arrêter de faire semblant on a trouvé [objet]"
     hide will_scared
@@ -1169,36 +1277,77 @@ label hospital:
 
 
     "….De la verveine? Est ce que je peux vraiment faire confiance à Will? Ça me parait tellement ridicule? Mais en même temps il est médecin…"
-
-    hide will_neutral
     
     "…Je regarde [fighterX], il a l’air vraiment mal en point… je ne suis pas sûre qu’il tienne jusqu’à la zone libre tout seul…"
     "…On pourrait essayer, on a rien à perdre…."
     "C’est une mission importante, et je ne sais pas du tout à quoi ça ressemble, la verveine. Il faut que je décide bien de qui va m’accompagner…."
+    
+    if fighterX == "Emilien":
 
+        menu:
+            "Qui vais-je choisir pour combattre ?"
 
-    menu:
-        "Qui vais-je choisir pour m'accompagner ?"
+            "Luca":
+                $ teammate = "Luca"
+                "C'est parti !"
+                hide will_scared
+                show luca_happy
 
-        "Luca" if fighterX != "Luca":
-            $ teammate = "Luca"
-            show luca_happy
-            "C'est parti !" 
+            "Tom":
+                $ teammate = "Tom"
+                "C'est parti !"
+                hide will_scared
+                show tom_happy
 
-        "Tom" if fighterX != "Tom":
-            $ teammate = "Tom"
-            show tom_happy
-            "C'est parti !"
+            "Personne":
+                $ teammate = "Personne"
+                "C'est parti !"
+                hide will_scared
 
-        "Emilien" if fighterX != "Emilien":
-            $ teammate = "Emilien"
-            show emilien_happy
-            "C'est parti !"
+    elif fighterX == "Luca":
+
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Emilien":
+                $ teammate = "Emilien"
+                "C'est parti !"
+                hide will_scared
+                show emilien_happy
+
+            "Tom":
+                $ teammate = "Tom"
+                "C'est parti !"
+                hide will_scared
+                show tom_happy
             
-        "Personne":
-            $ teammate = "Personne"
-            "C'est parti !"
+            "Personne":
+                $ teammate = "Personne"
+                "C'est parti !"
+                hide will_scared
+    
 
+    else :
+
+        menu:
+            "Qui vais-je choisir pour combattre ?"
+
+            "Emilien":
+                $ fighter = "Emilien"
+                "C'est parti !"
+                hide will_scared
+                show emilien_happy
+
+            "Luca":
+                $ fighter = "Luca"
+                "C'est parti !"
+                hide will_scared
+                show luca_happy
+            
+            "Personne":
+                $ teammate = "Personne"
+                "C'est parti !"
+                hide will_scared
 
 
     if teammate =="Emilien":
@@ -1207,23 +1356,16 @@ label hospital:
         hide emilien_happy
         show emilien_neutral
         e "J’en ai déjà vu en faisant du camping, donc ça devrait aller..mais faut vraiment qu’on fasse attention et qu’on confonde pas la verveine avec une autre plante."
-
-        hide emilien_neutral
         
         "… On fait le tour des pièces…"
-
-        hide hospital
-        scene balcony
-
         "…. Sur un balcon, il y a trois pots d’herbes…"
-        show emilien_neutral
         "Emilien, je crois qu’il y a un des pots qui contient de la verveine?"
         e "Laisse moi voir."
         "… Il observe chaque pot méticuleusement, et finit par en prendre un .."
         hide emilien_neutral
         show emilien_happy
         e "C’est bon on tient de la verveine, on peut y aller"
-        hide emilien_happy
+
 
 
     elif teammate == "Tom":
@@ -1247,25 +1389,18 @@ label hospital:
                 t "Il aurait pu nous montrer une photo Will"
 
 
-        hide tom_angry
         
+
         "… On fait le tour des pièces…"
-
-        hide hospital
-        scene balcony
-
-        "…. Sur un balcon, il y a trois pots d’herbes…"
-        show tom_neutral
+        "…. Sur le balcon il y a trois pots d’herbes…"
         "Tom, je crois qu’il y a un des pots qui contient de la verveine."
         t "Mais toutes les plantes se ressemblent là"
         "…Il sent les trois pots…"
-        hide tom_neutral
+        hide tom_angry
         show tom_happy
         t "C’est BON, c’est ce pot la, ca sent le tisane que ma soeur se faisait, c’est de la verveine, c’est sûr"
 
         t "On peut y aller"
-
-        hide tom_happy
 
         
     elif teammate == "Luca": 
@@ -1291,31 +1426,29 @@ label hospital:
                 l " On est mal parti. Je pensais que toi au moins tu savais cuisiné."
 
 
-        hide luca_happy
+        
 
         "… On fait le tour des pièces…"
-
-        hide hospital
-        scene balcony
-
         "…. Sur le balcon il y a trois pots d’herbes…"
-        show luca_neutral
         "Luca, je crois qu’il y a un des pots qui contient de la verveine."
+        hide luca_happy
+        show luca_neutral
         l "Laisse moi voir"
 
         "… Il observe chaque pot, et finit par en prendre un, un peu au hasard j’ail’impression .."
         hide luca_neutral
         show luca_happy
         l "Je pense que c’est de la verveine, on peut y aller"
-        hide luca_happy
 
 
     else:
         "Je n’ai rien trouvé au 5ème étage, mais je suis tombée sur un pot de plante au 4ème étage. Ca ressemble à de la verveine, je vais ramener ça au cas où…"
 
 
-    hide balcony
-    scene hospital
+    
+
+
+
 
     "…. On retrouve [fighterX].."
     "C’est bon on a la verveine, il faut que tu manges ça pour guérir !"
@@ -1330,8 +1463,8 @@ label hospital:
     show will_neutral
     w  "Je ne sais pas moi."
 
-    "Pourtant on a bien ramené de la verveine, il l’a bien ingurgitée, tu l’as dit toi même: ça devait le soigner!"
-    hide will_neutral
+    "Pourtant on a bien ramené de la verveine, il l’as bien ingurgité, tu l’as dit toi même: ça devait le soigner!"
+    hide will__neutral
     show will_happy
     w  "J’ai dit ça moi?"
 
@@ -1380,24 +1513,19 @@ label hospital:
 
     hide will_happy
     show will_angry
-    w "Mes supérieurs m’ont ordonné de produire le virus. Mais je n’avais plus espoir en l’humanité et je voulais y mettre fin…donc j’ai laissé fuiter le virus.L’humain est égoïste, lâche et violent! Les gens sont beaucoup plus honnêtes une fois zombifiés, ils ne peuvent plus cacher leur vraie nature !"
+    w "Mes supérieurs m’ont ordonné de produire le virus. Mais je n’avais plusespoir en l’humanité et je voulais y mettre fin…donc j’ai laissé fuiter le virus.L’humain est égoïste, lâche et violent! Les gens sont beaucoup plus honnêtes une fois zombifiés, ils ne peuvent plus cacher leur vraie nature !"
     
     hide will_angry
     show will_sad
     w"...Mais quand je vous vois vous entraider, je me dis que j’ai peut être eu tort…"
 
     menu:
-            w "Laissez moi vous aider pour de vrai cette fois !"
+            w"Laissez moi vous aider pour de vrai cette fois !"
 
             "Je choisis d’attaquer Will seule": 
                 "Je me jette sur Will pour le surprendre. J’arrive à lui donner un coup de poing mais il m’attrape par le bras et m’envoie voler. Ma tête heurte le mur et …"
-                hide will_sad
-                hide hospital
-                scene black
 
                 "….Aïe ma tête!!…"
-
-                scene room with dissolve
 
                 "…J’ouvre les yeux…"
 
@@ -1407,15 +1535,11 @@ label hospital:
                 return
 
             "Je choisis d’abandonner mes amis et de courir vers la sortie":
-                hide will_sad
                 "Je me tourne et cours vers la sortie! Je ne peux pas sauver mes amis de toute façon, il est déjà trop tard. J’entends des pas derrière moi. Le couloir s’étire. Je trébuche, et quelq’un me plaque au sol. Je sens une aiguille qui s’enfonce dans mon cou." 
-                hide hospital
-                scene black
                 "Tom, Luca, Emilien,....je suis désolée…si seulement je pouvais revenir en arrière…."
                 return
 
             "Je choisis de faire confiance à Will":
-                hide will_sad
                 "Will a réveillé mes amis."
 
 
@@ -1426,36 +1550,37 @@ label hospital:
 
 
         if fighterX == "Luca":
-            show luca_angry
-            l "ARGGHH… COURREZ…J’ai qu’une seule envie, c’est de vous manger la cervelle ! Eloignez vous de mMoOOiiiiIII…"
+            l "ARGGHH… COURREZ…J’ai qu’une seule envien, c’est de vous manger la cervelle ! Eloignez vous de mMoOOiiiiIII…"
 
             "QUOI?? Essaie de te contenir"
             l "Je ne pPeEEuuUUXx pas, c’est trop tard… COURSSS"
-            hide luca_angry
         
         elif fighterX == "Tom":
-            show tom_angry
-            t "ARGGHH… COURREZ…J’ai qu’une seule envie, c’est de vous manger la cervelle ! Eloignez vous de mMoOOiiiiIII…"
+            t "ARGGHH… COURREZ…J’ai qu’une seule envien, c’est de vous manger la cervelle ! Eloignez vous de mMoOOiiiiIII…"
 
             "QUOI?? Essaie de te contenir"
             t "Je ne pPeEEuuUUXx pas, c’est trop tard… COURSSS"
-            hide tom_angry
 
         else :
-            show emilien_angry
-            e "ARGGHH… COURREZ…J’ai qu’une seule envie, c’est de vous manger la cervelle ! Eloignez vous de mMoOOiiiiIII…"
+            e "ARGGHH… COURREZ…J’ai qu’une seule envien, c’est de vous manger la cervelle ! Eloignez vous de mMoOOiiiiIII…"
 
             "QUOI?? Essaie de te contenir"
             e "Je ne pPeEEuuUUXx pas, c’est trop tard… COURSSS"
-            hide emilien_angry
 
-        
         "Je me tourne et cours vers la sortie! J’entends des pas derrière moi. Le couloir s’étire. Je trébuche, et quelq’un me plaque au sol. Je hurle et mon épaule … des dents …"
 
         return
 
     
 
+
+
+
+
+
+
+
+    hide will_sad
     show will_neutral
     menu:
             
@@ -1479,32 +1604,28 @@ label hospital:
             $ temp = False
 
 
-    w "Je sais que c’est compliqué d’avoir confiance en moi, mais je vous promets qu'une seule goutte de ton sang mélangée à la verveine suffit pour sauver votre ami."
+    w "Je sais que c’est compliqué d’avoir confiance en moi, mais je vous promets qu' une seule goutte de ton sang mélangé à la verveine suffit pour sauver votre ami."
     hide will_neutral
-    if fighterX != "Emilien":
-        show emilien_angry
-        e "Si ça peut le sauver!"
-        hide emilien_angry
-
-    if fighterX != "Luca":    
-        show luca_neutral
-        l "On l’a déjà trainé jusque là, autant aller au bout."
-        "Parle pour toi c’est quand même mon sang qu’on va utiliser"
-        hide luca_neutral
-
+    show emilien_angry
+    e "Si ça peut le sauver!"
+    hide emilien_angry
+    show luca_neutral
+    l "On l’a déjà trainé jusque là, autant aller au bout."
+    "Parle pour toi c’est quand même mon sang qu’on va utiliser"
+    hide luca_neutral
     show will_neutral
     w "Tu ne vas rien sentir!"
     "Bon ok, Will, j’espère que cette fois c’est bien la vérité"
-    hide will_neutral
     "… Je me pique le doigt et récolte une goutte de sang que je dépose sur une feuille de verveine…"
     "…Je tends la feuille à [fighterX], qui l’ingère…"
     "Comme tout à l’heure, les yeux rivés sur lui, on attend que quelque chose se passe…"
     "….5min…"
 
-
     if teammate == "Emilien":
 
-        "…Sa blessure commence à disparaître, ça a l’air de fonctionner…"        
+        "…Sa blessure commence à disparaître, ça a l’air de fonctionner…"
+        hide will_neutral
+        
         
         if fighterX == "Luca" :
             show luca_happy
@@ -1535,18 +1656,16 @@ label hospital:
         hide will_happy
         show luca_neutral
         l "On devrait d’abord se rendre à la zone libre, on verra ça la bas"
-        hide luca_neutral
-        hide hospital
-        scene safe
         "…On arrive enfin en zone libre…"
         "Will passera bientôt devant un juge, mais en attendant il gère la production du remède."
         "On a pu l’essayer sur la petite soeur d’Emilien, la grande soeur de Tom et le frère de Luca et ils sont tous revenus à eux!"
-        "L’humanité croit de nouveau en son futur!"
+        "L’humanité croit de nouveau à son futur!"
         return
 
 
     elif teammate == "Tom":
     
+        "… Je me pique le doigt et récolte une goutte de sang que je dépose sur une feuille de verveine…"
         "…BOUMMM…."
         "…une grosse explosion se produit…"
         "Qu’est ce qu’il s’est passé???"
@@ -1558,7 +1677,6 @@ label hospital:
         hide tom_scared
         show emilien_scared
         e "Calmez vous, je crois qu’on s’est tous transformé en zombies"
-        hide emilien_scared
         "WILLL???"
         hide emilien_scared
         show will_sad
@@ -1575,18 +1693,19 @@ label hospital:
         hide tom_happy
         show emilien_happy
         e "Il a pas tord je crois que je pourrais soulever une montagne"
-        hide emilien_happy
-        hide hospital
-        scene black
         "…On a pas exactement finit par rejoindre la zone libre…"
         "Mais on a retrouvé la petite soeur d’Emilien, la grande soeur de Tom et le frère de Luca qui avaient tous été transformé!"
         "Au final, c’est pas si mal d’être un zombie…mais les proies commencent à manquer…"
         return
 
 
+
+
     elif teammate == "Luca":
     
         "…Sa blessure commence à disparaître, ça a l’air de fonctionner…"
+
+        hide will_neutral
 
         if fighterX == "Luca" :
             show luca_happy
@@ -1605,9 +1724,9 @@ label hospital:
 
         show will_happy
         w "Je vous l'avais bien dit de me faire confiance"
+        "Mais il a toujours le teint gris, c’est normal ça?"
         hide will_happy
         show will_scared
-        "Mais il a toujours le teint gris, c’est normal ça?"
         w "Non, avec la verveine et ton sang il devrait complètement guéri et être revenu à la normal"
         "C’est pas trop le cas"
         hide will_scared
@@ -1643,9 +1762,6 @@ label hospital:
         show emilien_happy
         e "Mes parents ont un local vide on pourrait s’installer là bas?"
         "C’est délirant mais pourquoi pas?"
-        hide emilien_happy
-        hide hospital
-        scene bar
         "…Et voilà ma success story, co-propriétaire d’un bar, qui a comme cocktail best seller le jus de basilic et mon sang…"
         "…. Mais si grâce a ça on peut vivre en cohabitation avec les zombies, qui ne nous prennent plus en chasse…."
         "On espère encore retrouver les familles de Tom, Emilien et Luca"
