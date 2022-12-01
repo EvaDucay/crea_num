@@ -20,8 +20,8 @@
     def setupTargets():
         target_start_x = 400
         target_row_1_y = 197
-        target_row_2_y = 482
-        target_row_3_y = 744
+        target_row_2_y = 462
+        target_row_3_y = 724
         target_spacing = 180
         target_down_time = (0.0,2.0)
         target_up_time = 2.0

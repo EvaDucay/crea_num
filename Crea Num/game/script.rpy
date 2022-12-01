@@ -50,7 +50,7 @@ label start:
 
     label checkpoint_lose1:
         scene ecole with dissolve
-        e "This is a checkpoint when you lose."
+        "This is a checkpoint when you lose."
         
     "CCCCOOOOMMMMMBBBBAAAAATTTTTTT"
 
@@ -60,8 +60,8 @@ label start:
 
     label end_win:
         scene ecole with dissolve
-        show tom_happy
-        e "Bravo! Tu as battu tous les zombies !!"
+        #show tom_happy
+        "Bravo! Tu as battu tous les zombies !!"
 
 
     hide tom_happy
@@ -181,6 +181,10 @@ label start:
 
 
     "CCCCOOOOMMMMMBBBBAAAAATTTTTTT"
+    $label_win = "win2"
+    call jeu2
+
+    label win2:
 
 
     menu:
@@ -507,45 +511,11 @@ label city:
 
     hide zombie
 
+    
+        
+ 
 
-    "CCCCCCCOOOOOOOOOMMMMMMMBBBBBBBAAAAAATTTTTT"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
     "Qui vais-je choisir pour combattre ?"
 
@@ -569,6 +539,60 @@ label city:
             "Tom à l'attaque !"
             hide luca_scared
             show tom_angry
+
+
+label checkpoint_lose2:
+    "This is a checkpoint when you lose."
+
+    
+
+
+    $label_win = "checkpoint_lose2"
+    $label_lose = "end_win2"
+    jump start_game1
+
+    label end_win2:
+        "Bravo! Tu as battu tous les zombies !!"
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
 
     if fighterX == "Tom":
 
@@ -780,6 +804,13 @@ label city:
                 "Luca à l'attaque !"
                 hide will_scared
                 show luca_angry
+
+
+
+    $label_win = "win3"
+    call jeu2
+
+    label win3:
 
 
 
@@ -1217,6 +1248,11 @@ label city:
                 "Luca à l'attaque !"
                 hide luca_scared
                 show luca_angry
+
+    $label_win = "win4"
+    call jeu2
+
+    label win4:
                     
 
 
@@ -1348,6 +1384,19 @@ label city:
                 $ teammate = "Personne"
                 "C'est parti !"
                 hide will_scared
+
+    label checkpoint_lose3:
+        "This is a checkpoint when you lose."
+        
+    "CCCCOOOOMMMMMBBBBAAAAATTTTTTT"
+
+    $label_win = "checkpoint_lose3"
+    $label_lose = "end_win3"
+    jump start_game1
+
+    label end_win3:
+        #show tom_happy
+        "Bravo! Tu as battu tous les zombies !!"
 
 
     if teammate =="Emilien":
