@@ -10,7 +10,7 @@ Dans le cadre de notre mineur création numérique , nous avons choisi de réali
 * Ren’py
 * Inkscape
 
-##Membre de l’équipe :
+## Membre de l’équipe :
 * BEN BRAHIM Lina
 * DUCAY Eva
 * FAKHOURY Rudy
